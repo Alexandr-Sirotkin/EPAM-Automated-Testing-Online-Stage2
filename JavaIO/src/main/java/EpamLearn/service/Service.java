@@ -57,13 +57,14 @@ public class Service {
       for (String line : lines) {
         if (line.contains("--||")) {
           countFolders++;
-        } else {
+        }
+        if (line.contains("*")) {
           countFiles++;
           sumOfFileNameLength += line.trim().replace("*", "").length();
         }
       }
-      System.out.println("Количество папок: " + countFiles);
-      System.out.println("Количество файлов " + countFolders);
+      System.out.println("Количество папок: " + countFolders);
+      System.out.println("Количество файлов " + countFiles);
       System.out.println("Среднее количество файлов в папке: " + countFiles * 1.0 / countFolders);
       System.out
           .println("Средняя длинна названия файла: " + sumOfFileNameLength * 1.0 / countFiles);
