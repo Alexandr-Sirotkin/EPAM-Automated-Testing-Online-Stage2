@@ -19,16 +19,18 @@ public class NewPastePastebinPage extends Page {
     super(driver);
   }
 
-  public String getHeading(){
-    return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.visibilityOf(heading)).getText();
+  public String getHeading() {
+    return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+        .until(ExpectedConditions.visibilityOf(heading)).getText();
   }
 
-  public String getSyntaxHighlighting(){
-    return  new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.visibilityOf(syntaxHighlightingBashEnabled)).getText();
+  public String getSyntaxHighlighting() {
+    return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+        .until(ExpectedConditions.visibilityOf(syntaxHighlightingBashEnabled)).getText();
   }
 
-  public String getTheCode(){
-    return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.visibilityOf(code)).getText();
+  public String getTheCode() {
+    return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+        .until(ExpectedConditions.visibilityOf(code)).getText();
   }
-
 }

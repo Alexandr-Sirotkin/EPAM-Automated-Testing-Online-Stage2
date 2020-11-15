@@ -10,7 +10,6 @@ public class PastebinMainPage extends Page {
 
   private String code = "Hello from WebDriver";
   private String name = "helloweb";
-
   @FindBy(xpath = "//div[@class=\"content__title -paste\"]")
   private WebElement heading;
   @FindBy(xpath = "//textarea[@id=\"postform-text\"]")
@@ -41,13 +40,11 @@ public class PastebinMainPage extends Page {
   }
 
   public PastebinMainPage choosePasteExpiration10Minutes() {
-
     pasteExpiration = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
         .until(ExpectedConditions.visibilityOf(pasteExpiration));
     pasteExpiration.click();
     pasteExpiration10Minutes.click();
     return this;
-
   }
 
   public PastebinMainPage insertNameOrTitle() {
@@ -61,6 +58,5 @@ public class PastebinMainPage extends Page {
     return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
         .until(ExpectedConditions.visibilityOf(heading)).getText();
   }
-
 
 }

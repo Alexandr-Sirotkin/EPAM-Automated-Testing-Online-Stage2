@@ -8,7 +8,6 @@ public class GoogleCloudPricingCalculatorPage extends Page {
 
   private static final String NUMBER_OF_INSTANCES = "4";
   private static final String ID_IFRAME = "myFrame";
-
   @FindBy(xpath = "//md-tab-item/div[@title=\"Compute Engine\"]")
   private WebElement computeEngine;
   @FindBy(xpath = "//input[@ng-model=\"listingCtrl.computeServer.quantity\"]")
@@ -130,8 +129,6 @@ public class GoogleCloudPricingCalculatorPage extends Page {
     waitVisibilityOf(AddToEstimate).click();
     return new EstimatePage(driver);
   }
-
-
 
 }
 

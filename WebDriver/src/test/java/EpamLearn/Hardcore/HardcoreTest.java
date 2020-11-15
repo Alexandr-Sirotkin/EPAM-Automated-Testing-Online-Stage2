@@ -2,6 +2,7 @@ package EpamLearn.Hardcore;
 
 import EpamLearn.HurtMePlentyAndHardcore.EstimatePage;
 import EpamLearn.HurtMePlentyAndHardcore.MailPage;
+import EpamLearn.Service.ServiceCalculator;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -9,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class HardcoreTest {
 
-  private Service service = new Service();
+  private ServiceCalculator service = new ServiceCalculator();
 
   @BeforeTest
   public void sendAndAcceptEstimate(){

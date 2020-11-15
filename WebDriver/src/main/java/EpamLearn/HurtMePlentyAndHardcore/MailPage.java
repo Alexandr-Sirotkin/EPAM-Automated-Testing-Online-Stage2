@@ -1,18 +1,15 @@
 package EpamLearn.HurtMePlentyAndHardcore;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class MailPage extends Page {
 
-
   public static String mailAddress;
   public static Double price;
   private static final String PAGE_URL = "https://10minutemail.com";
-  private final int WAIT_TIMEOUT_SECONDS = 20;
-
-
   @FindBy(xpath = "//input[@id=\"mail_address\"]")
   private WebElement fieldMailAddress;
   @FindBy(xpath = "//span[text()=\"Google Cloud Platform Price Estimate\"]")
@@ -44,10 +41,9 @@ public class MailPage extends Page {
   }
 
   public void getCost() {
-//    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", waitVisibilityOf(totalEstimatedCostPerMonth));
+    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
+        waitVisibilityOf(totalEstimatedCostPerMonth));
     price = Double.parseDouble(
         waitVisibilityOf(totalEstimatedCostPerMonth).getText().replaceAll("[^0-9.]", ""));
   }
-
-
 }

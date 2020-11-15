@@ -1,4 +1,4 @@
-package EpamLearn.Hardcore;
+package EpamLearn.Service;
 
 import EpamLearn.HurtMePlentyAndHardcore.CloudGooglePage;
 import EpamLearn.HurtMePlentyAndHardcore.EmailEstimateFormPage;
@@ -10,7 +10,7 @@ import EpamLearn.HurtMePlentyAndHardcore.SearchResultsForGoogleCloudPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Service {
+public class ServiceCalculator {
 
   private WebDriver driver;
   private final String PATH_CHROME_DRIVER = "./src/main/java/resources/chromedriver.exe";
@@ -19,7 +19,7 @@ public class Service {
   private MailPage mPage;
   private EmailEstimateFormPage formPage;
 
-  public Service openCalculatorPage() {
+  public ServiceCalculator openCalculatorPage() {
     System.setProperty("webdriver.chrome.driver", PATH_CHROME_DRIVER);
     driver = new ChromeDriver();
     driver.manage().window().maximize();
@@ -30,7 +30,7 @@ public class Service {
     return this;
   }
 
-  public Service fillOutTheCalculatorForm(){
+  public ServiceCalculator fillOutTheCalculatorForm() {
     calculator
         .goInTheFrame()
         .selectComputeEngine()
@@ -46,35 +46,59 @@ public class Service {
     return this;
   }
 
-  public Service getAnEstimate() {
+  public ServiceCalculator getAnEstimate() {
     ePage = calculator.getEstimate();
     ePage.getCost();
     return this;
   }
 
-  public Service openMailPageAndGetEmailAddress() {
+  public ServiceCalculator openMailPageAndGetEmailAddress() {
     mPage = ePage.openMailPage();
     mPage.openPage();
     mPage.getMailAddress();
     return this;
   }
 
-  public Service sendEstimateByMail(){
+  public ServiceCalculator sendEstimateByMail() {
     formPage = ePage.sendByEmail();
     formPage.setEmail();
     formPage.sendEmail();
     return this;
   }
 
-  public Service acceptLetterAndGetEstimate(){
+  public ServiceCalculator acceptLetterAndGetEstimate() {
     mPage.openLetter();
     mPage.getCost();
     return this;
   }
 
-  public void quit(){
+  public void quit() {
     driver.quit();
     driver = null;
+  }
+
+  public String getTextVMClass() {
+    return ePage.getTextVMClass();
+  }
+
+  public String getTextInstanceType() {
+    return ePage.getTextInstanceType();
+  }
+
+  public String getTextRegion() {
+    return ePage.getTextRegion();
+  }
+
+  public String getTextLocalSSD() {
+    return ePage.getTextLocalSSD();
+  }
+
+  public String getTextCommitmentTerm() {
+    return ePage.getTextCommitmentTerm();
+  }
+
+  public String getTextTotalEstimatedCostPerMonth() {
+    return ePage.getTextTotalEstimatedCostPerMonth();
   }
 
 }

@@ -18,5 +18,4 @@ public class SearchResultsForGoogleCloudPage extends Page {
     return new GoogleCloudPricingCalculatorPage(driver);
   }
 
-
 }

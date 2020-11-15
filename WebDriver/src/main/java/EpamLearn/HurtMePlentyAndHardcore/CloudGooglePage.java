@@ -9,7 +9,6 @@ public class CloudGooglePage extends Page {
 
   private static final String PAGE_URL = "https://cloud.google.com";
   private static final String REQUEST = "Google Cloud Platform Pricing Calculator";
-
   @FindBy(xpath = "//input[@aria-label=\"Search\"]")
   private WebElement searchField;
 
@@ -29,6 +28,4 @@ public class CloudGooglePage extends Page {
     searchField.sendKeys(Keys.ENTER);
     return new SearchResultsForGoogleCloudPage(driver);
   }
-
-
 }

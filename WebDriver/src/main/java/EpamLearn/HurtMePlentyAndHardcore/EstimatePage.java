@@ -10,7 +10,6 @@ public class EstimatePage extends Page {
 
   private static final String ID_IFRAME = "myFrame";
   public static Double cost;
-
   @FindBy(xpath = "//div[contains(text(), \"VM class:\")]")
   private WebElement vmClass;
   @FindBy(xpath = "//div[contains(text(), \"Instance type:\")]")
@@ -62,9 +61,9 @@ public class EstimatePage extends Page {
   }
 
   public void getCost() {
-//    driver.switchTo().window(windowsList.get(0));
-
-    cost = Double.parseDouble(waitVisibilityOf(totalEstimatedCostPerMonth).getText().replace(" 1 ", "").replaceAll("[^0-9.]", ""));
+    cost = Double.parseDouble(
+        waitVisibilityOf(totalEstimatedCostPerMonth).getText().replace(" 1 ", "")
+            .replaceAll("[^0-9.]", ""));
   }
 
   public MailPage openMailPage() {
@@ -73,5 +72,4 @@ public class EstimatePage extends Page {
     driver.switchTo().window(windowsList.get(1));
     return new MailPage(driver);
   }
-
 }
