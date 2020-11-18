@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class MailPage extends Page {
 
-  public static String mailAddress;
+  static String mailAddress;
   public static Double price;
   private static final String PAGE_URL = "https://10minutemail.com";
   @FindBy(xpath = "//input[@id=\"mail_address\"]")
@@ -17,7 +17,7 @@ public class MailPage extends Page {
   @FindBy(xpath = "//table//h3[contains(text(),\"USD\")]")
   private WebElement totalEstimatedCostPerMonth;
 
-  public MailPage(WebDriver driver) {
+  MailPage(WebDriver driver) {
     super(driver);
   }
 

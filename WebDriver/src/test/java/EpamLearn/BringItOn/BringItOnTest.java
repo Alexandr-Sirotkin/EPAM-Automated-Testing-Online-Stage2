@@ -1,5 +1,6 @@
 package EpamLearn.BringItOn;
 
+import EpamLearn.ICanWinAndBringItOn.NewPastePastebinPage;
 import EpamLearn.Service.ServicePastebin;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -8,42 +9,39 @@ import org.testng.annotations.Test;
 
 public class BringItOnTest {
 
-  private final String EXPECTED_HEADING = "how to gain dominance among developers";
-  private final String EXPECTED_TEXT_SYNTAX_HIGHLIGHTING = "Bash";
-  private final String EXPECTED_CODE = "git config --global user.name  \"New Sheriff in Town\"\n"
-      + "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n"
-      + "git push origin master --force";
   ServicePastebin service = new ServicePastebin();
 
-  @BeforeTest(alwaysRun = true)
+  @BeforeTest
   public void fillOutFormPastebin() {
     service
-        .openPastebinPageForBringItOn()
+        .openPastebinPage()
         .fillOutFormForBringItOn();
   }
 
   @Test
   public void checkPageTitle() {
-    String heading = service.getHeadingForBringItOn();
-    Assert.assertEquals(heading, EXPECTED_HEADING, "Заголовок не соответствует ожидаемому");
+    String heading = NewPastePastebinPage.getInstance(service.getDriver()).getHeading();
+    Assert.assertEquals(heading, "how to gain dominance among developers", "Заголовок не соответствует ожидаемому");
   }
 
   @Test
   public void syntaxHighlightingIsCorrectTest() {
-    String textSyntaxHighlighting = service.getSyntaxHighlighting();
-    Assert.assertEquals(textSyntaxHighlighting, EXPECTED_TEXT_SYNTAX_HIGHLIGHTING,
+    String textSyntaxHighlighting = NewPastePastebinPage.getInstance(service.getDriver()).getSyntaxHighlighting();
+    Assert.assertEquals(textSyntaxHighlighting, "Bash",
         "Подсветка синтаксиса не соответствует ожидаемой");
   }
 
   @Test
   public void pasteCodeIsCorrect() {
-    String code = service.getTheCode();
-    Assert.assertEquals(code, EXPECTED_CODE, "Код не соответствует ожидаемому");
+    String expectedCode = "git config --global user.name  \"New Sheriff in Town\"\n"
+        + "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n"
+        + "git push origin master --force";
+    String code = NewPastePastebinPage.getInstance(service.getDriver()).getTheCode();
+    Assert.assertEquals(code, expectedCode, "Код не соответствует ожидаемому");
   }
 
   @AfterTest
   public void closeBrowser() {
     service.quit();
   }
-
 }

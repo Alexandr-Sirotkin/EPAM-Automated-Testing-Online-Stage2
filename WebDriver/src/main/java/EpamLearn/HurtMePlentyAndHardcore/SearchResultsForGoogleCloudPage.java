@@ -9,7 +9,7 @@ public class SearchResultsForGoogleCloudPage extends Page {
   @FindBy(xpath = "//div[@class=\"gs-title\"]/a[@href=\"https://cloud.google.com/products/calculator\"]")
   private WebElement requiredSearchResult;
 
-  public SearchResultsForGoogleCloudPage(WebDriver driver) {
+  SearchResultsForGoogleCloudPage(WebDriver driver) {
     super(driver);
   }
 

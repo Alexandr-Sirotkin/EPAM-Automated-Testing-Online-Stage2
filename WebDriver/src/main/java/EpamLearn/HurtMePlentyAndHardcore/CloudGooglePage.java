@@ -7,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class CloudGooglePage extends Page {
 
-  private static final String PAGE_URL = "https://cloud.google.com";
-  private static final String REQUEST = "Google Cloud Platform Pricing Calculator";
   @FindBy(xpath = "//input[@aria-label=\"Search\"]")
   private WebElement searchField;
 
@@ -17,14 +15,14 @@ public class CloudGooglePage extends Page {
   }
 
   public CloudGooglePage openPage() {
-    driver.get(PAGE_URL);
+    driver.get("https://cloud.google.com");
     this.waitVisibilityOf(searchField);
     return this;
   }
 
-  public SearchResultsForGoogleCloudPage findRequest() {
+  public SearchResultsForGoogleCloudPage findRequest(String request) {
     searchField.click();
-    searchField.sendKeys(REQUEST);
+    searchField.sendKeys(request);
     searchField.sendKeys(Keys.ENTER);
     return new SearchResultsForGoogleCloudPage(driver);
   }

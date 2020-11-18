@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class EstimatePage extends Page {
 
-  private static final String ID_IFRAME = "myFrame";
+  private static EstimatePage estimatePage;
   public static Double cost;
   @FindBy(xpath = "//div[contains(text(), \"VM class:\")]")
   private WebElement vmClass;
@@ -25,8 +25,15 @@ public class EstimatePage extends Page {
   @FindBy(xpath = "//button[@id=\"email_quote\"]")
   private WebElement emailEstimate;
 
-  public EstimatePage(WebDriver driver) {
+  private EstimatePage(WebDriver driver) {
     super(driver);
+  }
+
+  public static EstimatePage getInstance(WebDriver driver){
+    if ( estimatePage == null) {
+      estimatePage = new EstimatePage(driver);
+    }
+    return estimatePage;
   }
 
   public String getTextVMClass() {
@@ -55,7 +62,7 @@ public class EstimatePage extends Page {
 
   public EmailEstimateFormPage sendByEmail() {
     driver.switchTo().frame(0);
-    driver.switchTo().frame(ID_IFRAME);
+    driver.switchTo().frame("myFrame");
     waitVisibilityOf(emailEstimate).click();
     return new EmailEstimateFormPage(driver);
   }

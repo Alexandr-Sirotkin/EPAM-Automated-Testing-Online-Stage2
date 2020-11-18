@@ -1,4 +1,4 @@
-package EpamLearn.BringItOn;
+package EpamLearn.ICanWinAndBringItOn;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,12 +6,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class PastebinMainPageForBringItOn extends Page {
+public class PastebinMainPage extends Page {
 
-  private String code = "git config --global user.name  \"New Sheriff in Town\"\n"
-      + "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n"
-      + "git push origin master --force";
-  private String name = "how to gain dominance among developers";
+  private static PastebinMainPage pastebinMainPage;
+  @FindBy(xpath = "//div[@class=\"content__title -paste\"]")
+  private WebElement heading;
   @FindBy(xpath = "//textarea[@id=\"postform-text\"]")
   private WebElement newPaste;
   @FindBy(xpath = "//span[@id=\"select2-postform-format-container\"]")
@@ -28,23 +27,30 @@ public class PastebinMainPageForBringItOn extends Page {
   private WebElement createNewPasteBtn;
   private static final String PAGE_URL = "https://pastebin.com";
 
-  public PastebinMainPageForBringItOn(WebDriver driver) {
+  private PastebinMainPage(WebDriver driver) {
     super(driver);
   }
 
-  public PastebinMainPageForBringItOn openPage() {
+  public static PastebinMainPage getInstance(WebDriver driver) {
+    if (pastebinMainPage == null) {
+      pastebinMainPage = new PastebinMainPage(driver);
+    }
+    return pastebinMainPage;
+  }
+
+  public PastebinMainPage openPage() {
     driver.get(PAGE_URL);
     new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
         .until(ExpectedConditions.visibilityOf(newPaste));
     return this;
   }
 
-  public PastebinMainPageForBringItOn enterTheCode() {
+  public PastebinMainPage enterTheCode(String code) {
     newPaste.sendKeys(code);
     return this;
   }
 
-  public PastebinMainPageForBringItOn chooseSyntaxHighlightingBash() {
+  public PastebinMainPage chooseSyntaxHighlightingBash() {
     syntaxHighlighting = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
         .until(ExpectedConditions.visibilityOf(syntaxHighlighting));
     syntaxHighlighting.click();
@@ -56,21 +62,26 @@ public class PastebinMainPageForBringItOn extends Page {
     createNewPasteBtn = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
         .until(ExpectedConditions.elementToBeClickable(createNewPasteBtn));
     createNewPasteBtn.click();
-    return new NewPastePastebinPage(driver);
+    return NewPastePastebinPage.getInstance(driver);
   }
 
-  public PastebinMainPageForBringItOn insertNameOrTitle() {
+  public PastebinMainPage insertNameOrTitle(String name) {
     pasteNameOrTitle = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
         .until(ExpectedConditions.visibilityOf(pasteNameOrTitle));
     pasteNameOrTitle.sendKeys(name);
     return this;
   }
 
-  public PastebinMainPageForBringItOn choosePasteExpiration10Minutes() {
+  public PastebinMainPage choosePasteExpiration10Minutes() {
     pasteExpiration = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
         .until(ExpectedConditions.visibilityOf(pasteExpiration));
     pasteExpiration.click();
     pasteExpiration10Minutes.click();
     return this;
+  }
+
+  public String getHeading() {
+    return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+        .until(ExpectedConditions.visibilityOf(heading)).getText();
   }
 }

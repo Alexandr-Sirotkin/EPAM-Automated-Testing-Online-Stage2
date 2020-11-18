@@ -6,8 +6,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class GoogleCloudPricingCalculatorPage extends Page {
 
-  private static final String NUMBER_OF_INSTANCES = "4";
-  private static final String ID_IFRAME = "myFrame";
   @FindBy(xpath = "//md-tab-item/div[@title=\"Compute Engine\"]")
   private WebElement computeEngine;
   @FindBy(xpath = "//input[@ng-model=\"listingCtrl.computeServer.quantity\"]")
@@ -53,14 +51,13 @@ public class GoogleCloudPricingCalculatorPage extends Page {
   @FindBy(xpath = "//button[@ng-click=\"listingCtrl.addComputeServer(ComputeEngineForm);\"]")
   private WebElement AddToEstimate;
 
-
-  public GoogleCloudPricingCalculatorPage(WebDriver driver) {
+  GoogleCloudPricingCalculatorPage(WebDriver driver) {
     super(driver);
   }
 
   public GoogleCloudPricingCalculatorPage goInTheFrame() {
     driver.switchTo().frame(0);
-    driver.switchTo().frame(ID_IFRAME);
+    driver.switchTo().frame("myFrame");
     return this;
   }
 
@@ -69,8 +66,8 @@ public class GoogleCloudPricingCalculatorPage extends Page {
     return this;
   }
 
-  public GoogleCloudPricingCalculatorPage setNumberOfInstances() {
-    waitVisibilityOf(numberOfInstances).sendKeys(NUMBER_OF_INSTANCES);
+  public GoogleCloudPricingCalculatorPage setNumberOfInstances(String number) {
+    waitVisibilityOf(numberOfInstances).sendKeys(number);
     return this;
   }
 
@@ -127,7 +124,7 @@ public class GoogleCloudPricingCalculatorPage extends Page {
 
   public EstimatePage getEstimate() {
     waitVisibilityOf(AddToEstimate).click();
-    return new EstimatePage(driver);
+    return EstimatePage.getInstance(driver);
   }
 
 }

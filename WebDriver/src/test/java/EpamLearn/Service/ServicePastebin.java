@@ -1,69 +1,50 @@
 package EpamLearn.Service;
 
-import EpamLearn.BringItOn.NewPastePastebinPage;
-import EpamLearn.ICanWin.Pages.PastebinMainPage;
-import EpamLearn.BringItOn.PastebinMainPageForBringItOn;
+import EpamLearn.ICanWinAndBringItOn.PastebinMainPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class ServicePastebin {
 
-  private final String PATH_CHROME_DRIVER = "./src/main/java/resources/chromedriver.exe";
   private WebDriver driver;
-  private PastebinMainPage page;
-  private PastebinMainPageForBringItOn pageForBringItOn;
-  private NewPastePastebinPage newPastePage;
+
+  public WebDriver getDriver(){
+    return driver;
+  }
 
   public void openBrowser(){
-    System.setProperty("webdriver.chrome.driver", PATH_CHROME_DRIVER);
+    System.setProperty("webdriver.chrome.driver", "./src/main/java/resources/chromedriver.exe");
     driver = new ChromeDriver();
-    driver.manage().window().maximize();
+  }
+
+  public void fillOutFormForICanWin() {
+    String codeForICanWin = "Hello from WebDriver";
+    String nameForICanWin = "helloweb";
+    PastebinMainPage.getInstance(driver)
+        .openPage()
+        .enterTheCode(codeForICanWin)
+        .choosePasteExpiration10Minutes()
+        .insertNameOrTitle(nameForICanWin);
+  }
+
+  public void fillOutFormForBringItOn() {
+    String codeForBringItOn = "git config --global user.name  \"New Sheriff in Town\"\n"
+        + "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n"
+        + "git push origin master --force";
+    String nameForBringItOn = "how to gain dominance among developers";
+    PastebinMainPage.getInstance(driver)
+        .openPage()
+        .enterTheCode(codeForBringItOn)
+        .chooseSyntaxHighlightingBash()
+        .choosePasteExpiration10Minutes()
+        .insertNameOrTitle(nameForBringItOn)
+        .createNewPaste();
   }
 
   public ServicePastebin openPastebinPage() {
     openBrowser();
-    page = new PastebinMainPage(driver);
+    PastebinMainPage.getInstance(driver);
     return this;
-  }
-
-  public void fillOutFormForICanWin() {
-    page
-        .openPage()
-        .enterTheCode()
-        .choosePasteExpiration10Minutes()
-        .insertNameOrTitle();
-  }
-
-  public void fillOutFormForBringItOn() {
-    newPastePage = pageForBringItOn
-        .openPage()
-        .enterTheCode()
-        .chooseSyntaxHighlightingBash()
-        .choosePasteExpiration10Minutes()
-        .insertNameOrTitle()
-        .createNewPaste();
-  }
-
-  public String getHeadingForICanWin() {
-    return page.getHeading();
-  }
-
-  public String getHeadingForBringItOn() {
-    return newPastePage.getHeading();
-  }
-
-  public String getSyntaxHighlighting() {
-    return newPastePage.getSyntaxHighlighting();
-  }
-
-  public ServicePastebin openPastebinPageForBringItOn() {
-    openBrowser();
-    pageForBringItOn = new PastebinMainPageForBringItOn(driver);
-    return this;
-  }
-
-  public String getTheCode() {
-    return newPastePage.getTheCode();
   }
 
   public void quit() {
