@@ -12,11 +12,6 @@ public class ServicePastebin {
     return driver;
   }
 
-  public void openBrowser(){
-    System.setProperty("webdriver.chrome.driver", "./src/main/java/resources/chromedriver.exe");
-    driver = new ChromeDriver();
-  }
-
   public void fillOutFormForICanWin() {
     String codeForICanWin = "Hello from WebDriver";
     String nameForICanWin = "helloweb";
@@ -42,7 +37,8 @@ public class ServicePastebin {
   }
 
   public ServicePastebin openPastebinPage() {
-    openBrowser();
+    System.setProperty("webdriver.chrome.driver", "./src/main/java/resources/chromedriver.exe");
+    driver = new ChromeDriver();
     PastebinMainPage.getInstance(driver);
     return this;
   }
