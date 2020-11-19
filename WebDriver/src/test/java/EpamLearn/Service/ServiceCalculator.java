@@ -1,32 +1,30 @@
 package EpamLearn.Service;
 
+import EpamLearn.Driver.Driver;
 import EpamLearn.HurtMePlentyAndHardcore.CloudGooglePage;
 import EpamLearn.HurtMePlentyAndHardcore.EmailEstimateFormPage;
 import EpamLearn.HurtMePlentyAndHardcore.EstimatePage;
 import EpamLearn.HurtMePlentyAndHardcore.GoogleCloudPricingCalculatorPage;
 import EpamLearn.HurtMePlentyAndHardcore.MailPage;
 import EpamLearn.HurtMePlentyAndHardcore.SearchResultsForGoogleCloudPage;
+import java.util.ArrayList;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class ServiceCalculator {
 
-  private WebDriver driver;
+  private WebDriver driver = Driver.getDriver();
   private GoogleCloudPricingCalculatorPage calculator;
   private MailPage mPage;
-
-  public WebDriver getDriver(){
-    return driver;
-  }
+  private EstimatePage estimatePage;
+  private String mailHandle;
+  public Double costFromEstimatePage;
+  public Double costFromMailPage;
 
   public ServiceCalculator openCalculatorPage() {
-    String pathChromeDriver = "./src/main/java/resources/chromedriver.exe";
-    System.setProperty("webdriver.chrome.driver", pathChromeDriver);
-    String request = "Google Cloud Platform Pricing Calculator";
-    driver = new ChromeDriver();
-    driver.manage().window().maximize();
     CloudGooglePage page = new CloudGooglePage(driver);
     page.openPage();
+    String request = "Google Cloud Platform Pricing Calculator";
     SearchResultsForGoogleCloudPage pageSearch = page.findRequest(request);
     calculator = pageSearch.selectResult();
     return this;
@@ -50,33 +48,36 @@ public class ServiceCalculator {
   }
 
   public ServiceCalculator getAnEstimate() {
-    calculator.getEstimate();
-    EstimatePage.getInstance(driver).getCost();
+    estimatePage = calculator.getEstimate();
+    costFromEstimatePage = estimatePage.getCost();
     return this;
   }
 
   public ServiceCalculator openMailPageAndGetEmailAddress() {
-    mPage = EstimatePage.getInstance(driver).openMailPage();
-    mPage.openPage();
-    mPage.getMailAddress();
+    ((JavascriptExecutor) driver).executeScript("window.open()");
+    ArrayList<String> tabList = new ArrayList<>(driver.getWindowHandles());
+    String estimateHandle = String.valueOf(tabList.get(0));
+    mailHandle = String.valueOf(tabList.get(1));
+    driver.switchTo().window(mailHandle);
+    mPage = new MailPage(driver);
+    mPage
+        .openPage()
+        .getMailAddress();
+    driver.switchTo().window(estimateHandle);
     return this;
   }
 
   public ServiceCalculator sendEstimateByMail() {
-    EmailEstimateFormPage formPage = EstimatePage.getInstance(driver).sendByEmail();
+    EmailEstimateFormPage formPage = estimatePage.sendByEmail();
     formPage.setEmail();
     formPage.sendEmail();
     return this;
   }
 
-  public ServiceCalculator acceptLetterAndGetEstimate() {
+  public void acceptLetterAndGetEstimate() {
+    driver.switchTo().window(mailHandle);
     mPage.openLetter();
-    mPage.getCost();
-    return this;
+    costFromMailPage = mPage.getCost();
   }
 
-  public void quit() {
-    driver.quit();
-    driver = null;
-  }
 }

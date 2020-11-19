@@ -1,6 +1,6 @@
 package EpamLearn.exceptions;
 
-public class NoFacultiesInTheUniversityException extends Exception {
+public class NoFacultiesInTheUniversityException extends RuntimeException {
 
   public NoFacultiesInTheUniversityException() {
   }

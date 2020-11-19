@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class NewPastePastebinPage extends Page {
 
-  private static NewPastePastebinPage newPastePastebinPage;
   @FindBy(xpath = "//h1")
   private WebElement heading;
   @FindBy(xpath = "//a[text()='Bash']")
@@ -16,15 +15,8 @@ public class NewPastePastebinPage extends Page {
   @FindBy(xpath = "//ol")
   private WebElement code;
 
-  private NewPastePastebinPage(WebDriver driver) {
+  public NewPastePastebinPage(WebDriver driver) {
     super(driver);
-  }
-
-  public static NewPastePastebinPage getInstance(WebDriver driver){
-    if (newPastePastebinPage == null) {
-      newPastePastebinPage = new NewPastePastebinPage(driver);
-    }
-    return newPastePastebinPage;
   }
 
   public String getHeading() {

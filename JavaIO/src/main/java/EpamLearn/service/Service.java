@@ -12,8 +12,8 @@ import java.util.List;
 
 public class Service {
 
-  static int spaceForDirectory = 1;
-  static int spaceForFile = 1;
+  private static int spaceForDirectory = 1;
+  private static int spaceForFile = 1;
 
   public static void writeTheStructureOfFoldersAndFilesToFile(File file) {
     File folderAndFileStructure = new File(
@@ -28,7 +28,7 @@ public class Service {
     }
   }
 
-  public static void writeContent(File[] listFiles, BufferedWriter writer) throws IOException {
+  private static void writeContent(File[] listFiles, BufferedWriter writer) throws IOException {
     StringBuffer stringBuffer = new StringBuffer(" ");
     for (File file : listFiles) {
       if (file.isDirectory()) {

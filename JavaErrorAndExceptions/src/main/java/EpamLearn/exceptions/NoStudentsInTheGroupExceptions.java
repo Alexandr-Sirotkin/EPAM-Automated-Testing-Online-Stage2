@@ -1,6 +1,6 @@
 package EpamLearn.exceptions;
 
-public class NoStudentsInTheGroupExceptions extends Exception {
+public class NoStudentsInTheGroupExceptions extends RuntimeException {
 
   public NoStudentsInTheGroupExceptions() {
   }

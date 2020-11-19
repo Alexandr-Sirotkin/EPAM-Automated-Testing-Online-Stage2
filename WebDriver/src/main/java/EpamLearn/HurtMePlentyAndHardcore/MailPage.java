@@ -1,14 +1,15 @@
 package EpamLearn.HurtMePlentyAndHardcore;
 
+import EpamLearn.Wait.PageLoadingConditions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MailPage extends Page {
 
   static String mailAddress;
-  public static Double price;
   private static final String PAGE_URL = "https://10minutemail.com";
   @FindBy(xpath = "//input[@id=\"mail_address\"]")
   private WebElement fieldMailAddress;
@@ -17,12 +18,13 @@ public class MailPage extends Page {
   @FindBy(xpath = "//table//h3[contains(text(),\"USD\")]")
   private WebElement totalEstimatedCostPerMonth;
 
-  MailPage(WebDriver driver) {
+  public MailPage(WebDriver driver) {
     super(driver);
   }
 
   public MailPage openPage() {
     driver.get(PAGE_URL);
+    new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(PageLoadingConditions.jQueryAJAXsCompleted());
     return this;
   }
 
@@ -30,20 +32,19 @@ public class MailPage extends Page {
     do {
       mailAddress = waitVisibilityOf(fieldMailAddress).getAttribute("value");
     } while (!(mailAddress.contains("@")));
-    driver.switchTo().window(windowsList.get(0));
     return this;
   }
 
   public MailPage openLetter() {
-    driver.switchTo().window(windowsList.get(1));
     waitVisibilityOf(messageFromEstimatePage).click();
     return this;
   }
 
-  public void getCost() {
+  public Double getCost() {
     ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();",
         waitVisibilityOf(totalEstimatedCostPerMonth));
-    price = Double.parseDouble(
+    return Double.parseDouble(
         waitVisibilityOf(totalEstimatedCostPerMonth).getText().replaceAll("[^0-9.]", ""));
   }
+
 }

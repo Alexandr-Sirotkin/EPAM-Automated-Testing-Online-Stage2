@@ -1,21 +1,18 @@
 package EpamLearn.Service;
 
+import EpamLearn.Driver.Driver;
 import EpamLearn.ICanWinAndBringItOn.PastebinMainPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 public class ServicePastebin {
 
-  private WebDriver driver;
-
-  public WebDriver getDriver(){
-    return driver;
-  }
+  private WebDriver driver = Driver.getDriver();
+  private PastebinMainPage pastebinMainPage;
 
   public void fillOutFormForICanWin() {
     String codeForICanWin = "Hello from WebDriver";
     String nameForICanWin = "helloweb";
-    PastebinMainPage.getInstance(driver)
+    pastebinMainPage
         .openPage()
         .enterTheCode(codeForICanWin)
         .choosePasteExpiration10Minutes()
@@ -27,7 +24,7 @@ public class ServicePastebin {
         + "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n"
         + "git push origin master --force";
     String nameForBringItOn = "how to gain dominance among developers";
-    PastebinMainPage.getInstance(driver)
+    pastebinMainPage
         .openPage()
         .enterTheCode(codeForBringItOn)
         .chooseSyntaxHighlightingBash()
@@ -37,15 +34,8 @@ public class ServicePastebin {
   }
 
   public ServicePastebin openPastebinPage() {
-    System.setProperty("webdriver.chrome.driver", "./src/main/java/resources/chromedriver.exe");
-    driver = new ChromeDriver();
-    PastebinMainPage.getInstance(driver);
+    pastebinMainPage = new PastebinMainPage(driver);
     return this;
-  }
-
-  public void quit() {
-    driver.quit();
-    driver = null;
   }
 
 }

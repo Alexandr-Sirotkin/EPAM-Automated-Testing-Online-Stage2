@@ -9,9 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class Page {
 
-  static ArrayList<String> windowsList;
   protected WebDriver driver;
-  private final int WAIT_TIMEOUT_SECONDS = 15;
+  protected final int WAIT_TIMEOUT_SECONDS = 15;
 
   protected Page(WebDriver driver) {
     this.driver = driver;

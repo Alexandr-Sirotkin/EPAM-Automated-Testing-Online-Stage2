@@ -8,9 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PastebinMainPage extends Page {
 
-  private static PastebinMainPage pastebinMainPage;
   @FindBy(xpath = "//div[@class=\"content__title -paste\"]")
-  private WebElement heading;
+  public static WebElement heading;
   @FindBy(xpath = "//textarea[@id=\"postform-text\"]")
   private WebElement newPaste;
   @FindBy(xpath = "//span[@id=\"select2-postform-format-container\"]")
@@ -25,21 +24,14 @@ public class PastebinMainPage extends Page {
   private WebElement pasteNameOrTitle;
   @FindBy(xpath = "//button[text()=\"Create New Paste\"]")
   private WebElement createNewPasteBtn;
-  private static final String PAGE_URL = "https://pastebin.com";
 
-  private PastebinMainPage(WebDriver driver) {
+
+  public PastebinMainPage(WebDriver driver) {
     super(driver);
   }
 
-  public static PastebinMainPage getInstance(WebDriver driver) {
-    if (pastebinMainPage == null) {
-      pastebinMainPage = new PastebinMainPage(driver);
-    }
-    return pastebinMainPage;
-  }
-
   public PastebinMainPage openPage() {
-    driver.get(PAGE_URL);
+    driver.get("https://pastebin.com");
     new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
         .until(ExpectedConditions.visibilityOf(newPaste));
     return this;
@@ -62,7 +54,7 @@ public class PastebinMainPage extends Page {
     createNewPasteBtn = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
         .until(ExpectedConditions.elementToBeClickable(createNewPasteBtn));
     createNewPasteBtn.click();
-    return NewPastePastebinPage.getInstance(driver);
+    return new NewPastePastebinPage(driver);
   }
 
   public PastebinMainPage insertNameOrTitle(String name) {
@@ -80,8 +72,4 @@ public class PastebinMainPage extends Page {
     return this;
   }
 
-  public String getHeading() {
-    return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-        .until(ExpectedConditions.visibilityOf(heading)).getText();
-  }
 }

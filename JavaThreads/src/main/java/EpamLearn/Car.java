@@ -6,11 +6,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Car implements Runnable {
 
-  Semaphore parking;
-  int waitingTime;
-  Random random = new Random();
+  private Semaphore parking;
+  private int waitingTime;
+  private Random random = new Random();
 
-  public Car(Semaphore parking, int waitingTime) {
+  Car(Semaphore parking, int waitingTime) {
     this.parking = parking;
     this.waitingTime = waitingTime;
   }

@@ -1,7 +1,6 @@
 package EpamLearn.Hardcore;
 
-import EpamLearn.HurtMePlentyAndHardcore.EstimatePage;
-import EpamLearn.HurtMePlentyAndHardcore.MailPage;
+import EpamLearn.Driver.Driver;
 import EpamLearn.Service.ServiceCalculator;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -25,14 +24,12 @@ public class HardcoreTest {
 
   @Test
   public void comparePrices() {
-    Double cost = EstimatePage.cost;
-    Double price = MailPage.price;
-    Assert.assertEquals(price, cost, "Цена в письме не соответствует цене на сайте.");
+    Assert.assertEquals(service.costFromMailPage, service.costFromEstimatePage, "Цена в письме не соответствует цене на сайте.");
   }
 
   @AfterTest
   public void closeBrowser() {
-    service.quit();
+    Driver.closeDriver();
   }
 
 }

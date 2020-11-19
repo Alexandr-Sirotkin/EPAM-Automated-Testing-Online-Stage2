@@ -22,10 +22,6 @@ public class University {
     this.name = name;
   }
 
-  public List<Faculty> getFacultiesList() {
-    return facultiesList;
-  }
-
   public void setFacultiesList(List<Faculty> facultiesList)
       throws NoFacultiesInTheUniversityException {
     if (facultiesList.isEmpty()) {
@@ -39,7 +35,7 @@ public class University {
       String groupName, Subjects subject) {
     int sumOfMarks = 0;
     int numberOfMarks = 0;
-    for (Faculty faculty : this.getFacultiesList()) {
+    for (Faculty faculty : facultiesList) {
       if (faculty.getName() == facultiesName) {
         for (Group group : faculty.getGroupsList()) {
           if (group.getName() == groupName) {
@@ -61,7 +57,7 @@ public class University {
   public double getAverageMarkInTheSubjectForTheUniversity(Subjects subject) {
     int sumOfMarks = 0;
     int numberOfMarks = 0;
-    for (Faculty faculty : this.getFacultiesList()) {
+    for (Faculty faculty : facultiesList) {
       for (Group group : faculty.getGroupsList()) {
         for (Student student : group.getStudentsList()) {
           for (Mark mark : student.getMarksList()) {

@@ -1,6 +1,6 @@
 package EpamLearn.exceptions;
 
-public class MarkOutOfBoundsException extends Exception {
+public class MarkOutOfBoundsException extends RuntimeException {
 
   public MarkOutOfBoundsException() {
   }

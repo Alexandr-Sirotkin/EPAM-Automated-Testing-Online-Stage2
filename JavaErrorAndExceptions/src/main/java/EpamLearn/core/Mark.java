@@ -12,7 +12,7 @@ public class Mark {
     setMark(mark);
   }
 
-  public Subjects getSubject() {
+  Subjects getSubject() {
     return subject;
   }
 
@@ -20,11 +20,11 @@ public class Mark {
     this.subject = subject;
   }
 
-  public int getMark() {
+  int getMark() {
     return mark;
   }
 
-  public void setMark(int mark) throws MarkOutOfBoundsException {
+  private void setMark(int mark) throws MarkOutOfBoundsException {
     if (mark < 0 || mark > 10) {
       throw new MarkOutOfBoundsException("The mark cannot be less than 0 and more than 10.");
     } else {

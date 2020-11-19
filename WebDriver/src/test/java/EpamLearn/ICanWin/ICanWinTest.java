@@ -1,5 +1,6 @@
 package EpamLearn.ICanWin;
 
+import EpamLearn.Driver.Driver;
 import EpamLearn.ICanWinAndBringItOn.PastebinMainPage;
 import EpamLearn.Service.ServicePastebin;
 import org.testng.Assert;
@@ -9,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class ICanWinTest {
 
-  ServicePastebin service = new ServicePastebin();
+  private ServicePastebin service = new ServicePastebin();
 
   @BeforeTest
   public void fillOutFormPastebin() {
@@ -20,12 +21,12 @@ public class ICanWinTest {
 
   @Test
   public void checkHeading() {
-    Assert.assertEquals(PastebinMainPage.getInstance(service.getDriver()).getHeading(), "Optional Paste Settings",
+    Assert.assertEquals(PastebinMainPage.heading.getText(), "Optional Paste Settings",
         "Заголовок не соответствует ожидаемому");
   }
 
   @AfterTest
   public void closeBrowser() {
-    service.quit();
+    Driver.closeDriver();
   }
 }

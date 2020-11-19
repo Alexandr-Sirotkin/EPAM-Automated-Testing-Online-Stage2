@@ -13,7 +13,7 @@ public class Group {
     setStudentsList(studentsList);
   }
 
-  public String getName() {
+  String getName() {
     return name;
   }
 
@@ -21,11 +21,11 @@ public class Group {
     this.name = name;
   }
 
-  public List<Student> getStudentsList() {
+  List<Student> getStudentsList() {
     return studentsList;
   }
 
-  public void setStudentsList(List<Student> studentsList) throws NoStudentsInTheGroupExceptions {
+  private void setStudentsList(List<Student> studentsList) throws NoStudentsInTheGroupExceptions {
     if (studentsList.isEmpty()) {
       throw new NoStudentsInTheGroupExceptions("There aren't students in the group.");
     } else {

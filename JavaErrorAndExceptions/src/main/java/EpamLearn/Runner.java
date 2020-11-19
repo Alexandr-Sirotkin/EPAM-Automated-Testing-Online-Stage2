@@ -6,18 +6,13 @@ import EpamLearn.core.Mark;
 import EpamLearn.core.Student;
 import EpamLearn.core.Subjects;
 import EpamLearn.core.University;
-import EpamLearn.exceptions.MarkOutOfBoundsException;
-import EpamLearn.exceptions.NoFacultiesInTheUniversityException;
-import EpamLearn.exceptions.NoGroupsInTheFacultyException;
-import EpamLearn.exceptions.NoStudentsInTheGroupExceptions;
-import EpamLearn.exceptions.StudentHasNoSubjectsException;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Runner {
 
   public static void main(String[] args) {
 
-    try {
       Student student1 = new Student(12356, "Шевчук", "Николай", Arrays.asList(
           new Mark(Subjects.CULTURAL_STUDIES, 7),
           new Mark(Subjects.DRAWING, 4),
@@ -89,8 +84,8 @@ public class Runner {
           new Mark(Subjects.JURISPRUDENCE, 7)));
       Group group1 = new Group("ТЭ-11", Arrays.asList(student1, student3, student5));
       Group group2 = new Group("АГ-11", Arrays.asList(student2, student4, student6));
-      Faculty facultyEnergy = new Faculty("Энергетический", Arrays.asList(group1));
-      Faculty facultyCorrespondence = new Faculty("Заочный", Arrays.asList(group2));
+      Faculty facultyEnergy = new Faculty("Энергетический", Collections.singletonList(group1));
+      Faculty facultyCorrespondence = new Faculty("Заочный", Collections.singletonList(group2));
       University university = new University("ГГТУ им. П.О.Сухого",
           Arrays.asList(facultyEnergy, facultyCorrespondence));
       System.out.println("Средний балл по всем предметам студента Шевчука Николая: " + student1
@@ -101,16 +96,5 @@ public class Runner {
                   Subjects.HIGHER_MATHEMATICS));
       System.out.println("Средний балл по черчению для всего университета: " + university
           .getAverageMarkInTheSubjectForTheUniversity(Subjects.DRAWING));
-    } catch (StudentHasNoSubjectsException e) {
-      System.err.println(e);
-    } catch (MarkOutOfBoundsException e) {
-      System.err.println(e);
-    } catch (NoStudentsInTheGroupExceptions e) {
-      System.err.println(e);
-    } catch (NoGroupsInTheFacultyException e) {
-      System.err.println(e);
-    } catch (NoFacultiesInTheUniversityException e) {
-      System.err.println(e);
-    }
   }
 }

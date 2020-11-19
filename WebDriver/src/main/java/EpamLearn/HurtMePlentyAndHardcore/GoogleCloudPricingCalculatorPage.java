@@ -124,7 +124,7 @@ public class GoogleCloudPricingCalculatorPage extends Page {
 
   public EstimatePage getEstimate() {
     waitVisibilityOf(AddToEstimate).click();
-    return EstimatePage.getInstance(driver);
+    return new EstimatePage(driver);
   }
 
 }

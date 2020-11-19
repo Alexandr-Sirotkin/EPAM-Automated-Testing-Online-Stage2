@@ -13,7 +13,7 @@ public class Faculty {
     setGroupsList(groupsList);
   }
 
-  public String getName() {
+  String getName() {
     return name;
   }
 
@@ -21,11 +21,11 @@ public class Faculty {
     this.name = name;
   }
 
-  public List<Group> getGroupsList() {
+  List<Group> getGroupsList() {
     return groupsList;
   }
 
-  public void setGroupsList(List<Group> groupsList) throws NoGroupsInTheFacultyException {
+  private void setGroupsList(List<Group> groupsList) throws NoGroupsInTheFacultyException {
     if (groupsList.isEmpty()) {
       throw new NoGroupsInTheFacultyException("There aren't groups in the faculty.");
     } else {
